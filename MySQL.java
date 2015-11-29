@@ -1,33 +1,70 @@
-import java.io.*;
+import org.jetbrains.annotations.Nullable;
+
 import java.sql.*;
 
 /**
- * Created by Валентин on 28.11.2015.
+ * Created by Mr.Blackwell on 28.11.2015.
  */
 public class MySQL {
-    public Connection connectDataBase() {
-        Connection conn = null;
+    private static Connection connection = null;
+    public static boolean connectDataBase() {
         try {
             String userName = "root";
             String password = "110995";
-            String url = "jdbc:mysql://localhost/test";
+            String url = "jdbc:mysql://localhost/piter_lada";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection(url, userName, password);
+            connection = DriverManager.getConnection(url, userName, password);
             System.out.println("Database connection established");
-            return conn;
+            return true;
         } catch (Exception e) {
             System.err.println("Cannot connect to database server");
-            e.printStackTrace();
-            return null;
+            return false;
         }
     }
-    public void disconnectDataBase(Connection conn) {
+
+
+    public static int getEmployees (String login, String password) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT id FROM employees WHERE login=? AND password=?");
+            ps.setString(1,login);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                return (Integer.parseInt(rs.getString(1)));
+            }
+            rs.close();
+            ps.close();
+            return -1;
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+
+    @Nullable
+    public static void getInfoEmployees (String[] info, int id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT name, last_name, post FROM employees WHERE id=?");
+            ps.setInt(1, id);
+            System.out.println(ps.toString());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                for (int i = 1; i <= 3; i++) {
+                    info[i - 1] = rs.getString(i);
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+    }
+
+    public static void disconnectDataBase() {
         {
-            if (conn != null)
+            if (connection != null)
             {
                 try
                 {
-                    conn.close();
+                    connection.close();
                     System.out.println ("Database connection terminated");
                 }
                 catch (Exception e) { }

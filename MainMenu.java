@@ -2,10 +2,10 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Created by Валентин on 24.11.2015.
+ * Created by Mr.Blackwell on 24.11.2015.
  */
 public class MainMenu extends JFrame {
-    public void createAndShowGUI() {
+    public void createAndShowGUI(int id) {
         Container container = getContentPane();
 
         GroupLayout layout = new GroupLayout(container);
@@ -23,6 +23,9 @@ public class MainMenu extends JFrame {
         JButton entranceAuto = new JButton("Entrance of cars");
         JButton entranceSpare = new JButton("Entrance of spares");
         JButton fullSold = new JButton("The grand total of sales");
+        String[] arr = new String[3];
+        MySQL.getInfoEmployees(arr, id);
+        JLabel posst = new JLabel(arr[0] + " " + arr[1] + ",      " + "Post: " + arr[2]);
 
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -30,6 +33,7 @@ public class MainMenu extends JFrame {
                         .addComponent(spares, 200, 200, 200)
                         .addComponent(employees, 200, 200, 200))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(posst, 200,200,200)
                         .addComponent(soldAuto, 200, 200, 200)
                         .addComponent(soldSpares, 200, 200, 200)
                         .addComponent(order, 200, 200, 200))
@@ -41,10 +45,13 @@ public class MainMenu extends JFrame {
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(posst))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(auto)
                         .addComponent(soldAuto)
                         .addComponent(entranceAuto))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(posst)
                         .addComponent(spares)
                         .addComponent(soldSpares)
                         .addComponent(entranceSpare))
@@ -54,7 +61,6 @@ public class MainMenu extends JFrame {
                         .addComponent(fullSold))
         );
 
-        setSize(500, 500);
         setTitle("Piter Lada");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
