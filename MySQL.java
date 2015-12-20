@@ -5,8 +5,21 @@ import java.sql.*;
 /**
  * Created by Mr.Blackwell on 28.11.2015.
  */
-public class MySQL {
+
+
+public class MySQL extends Thread {
     private static Connection connection = null;
+    private boolean flag = true;
+
+    @Override
+    public void run(){
+        try {
+            while (flag) {
+                sleep(200);
+            }
+        }
+        catch (Exception e){}
+    }
     public static boolean connectDataBase() {
         try {
             String userName = "root";
@@ -14,16 +27,14 @@ public class MySQL {
             String url = "jdbc:mysql://localhost/piter_lada";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(url, userName, password);
-            System.out.println("Database connection established");
             return true;
         } catch (Exception e) {
-            System.err.println("Cannot connect to database server");
             return false;
         }
     }
 
 
-    public static int getEmployees (String login, String password) {
+    public int getEmployees (String login, String password) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT id FROM employees WHERE login=? AND password=?");
             ps.setString(1,login);
@@ -41,7 +52,7 @@ public class MySQL {
     }
 
     @Nullable
-    public static void getInfoEmployees (String[] info, int id) {
+    public void getInfoEmployees (String[] info, int id) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT name, last_name, post FROM employees WHERE id=?");
             ps.setInt(1, id);

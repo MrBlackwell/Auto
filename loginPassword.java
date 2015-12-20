@@ -5,7 +5,7 @@ import java.awt.*;
  * Created by Валентин on 29.11.2015.
  */
 public class loginPassword extends JFrame{
-    public void run () {
+    public void createAndShowGUI() {
         Container container = getContentPane();
 
         GroupLayout layout = new GroupLayout(container);
@@ -45,7 +45,7 @@ public class loginPassword extends JFrame{
                         .addComponent(right))
         );
 
-
+        setLocation(460,250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setVisible(true);

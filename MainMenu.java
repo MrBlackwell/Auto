@@ -16,6 +16,7 @@ public class MainMenu extends JFrame {
 
         JButton employees = new JButton("Employees");
         JButton auto = new JButton("Cars");
+        auto.addActionListener(new CarsAction());
         JButton soldAuto = new JButton("Sold cars");
         JButton spares = new JButton("Spares");
         JButton soldSpares = new JButton("Sold spares");
@@ -24,8 +25,9 @@ public class MainMenu extends JFrame {
         JButton entranceSpare = new JButton("Entrance of spares");
         JButton fullSold = new JButton("The grand total of sales");
         String[] arr = new String[3];
-        MySQL.getInfoEmployees(arr, id);
+        Main.mySQL.getInfoEmployees(arr, id);
         JLabel posst = new JLabel(arr[0] + " " + arr[1] + ",      " + "Post: " + arr[2]);
+        posst.setFont(new Font("Verdana",Font.ITALIC, 15));
 
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -33,7 +35,7 @@ public class MainMenu extends JFrame {
                         .addComponent(spares, 200, 200, 200)
                         .addComponent(employees, 200, 200, 200))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(posst, 200,200,200)
+                        .addComponent(posst, 300,300,300)
                         .addComponent(soldAuto, 200, 200, 200)
                         .addComponent(soldSpares, 200, 200, 200)
                         .addComponent(order, 200, 200, 200))
@@ -61,6 +63,7 @@ public class MainMenu extends JFrame {
                         .addComponent(fullSold))
         );
 
+        setLocation(20,20);
         setTitle("Piter Lada");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
