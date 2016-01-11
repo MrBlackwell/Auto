@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-/**
- * Created by Валентин on 29.11.2015.
- */
+
 public class CarsAction extends AbstractAction {
+
+    public int id;
+
+    public CarsAction (int id) {
+        this.id = id;
+    }
     public void actionPerformed(ActionEvent ev) {
-        SwingUtilities.invokeLater(()->new Cars().createAndShowGUI());
+        SwingUtilities.invokeLater(()->new Cars(id).createAndShowGUI());
     }
 }

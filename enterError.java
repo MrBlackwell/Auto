@@ -1,10 +1,7 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
-/**
- * Created by Валентин on 29.11.2015.
- */
+
 public class enterError extends JFrame {
     public void createAndShowGUI(String errorstr) {
         JLabel error = new JLabel(errorstr + "!", SwingConstants.CENTER);

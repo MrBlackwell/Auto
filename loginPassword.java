@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**
- * Created by Валентин on 29.11.2015.
- */
+
 public class loginPassword extends JFrame{
     public void createAndShowGUI() {
         Container container = getContentPane();
@@ -14,11 +14,20 @@ public class loginPassword extends JFrame{
         layout.setAutoCreateContainerGaps(true);
 
         JLabel left = new JLabel("                  ");
-        JLabel please = new JLabel("Enter login and password");
+        JLabel please = new JLabel("Введите логин и пароль");
         JTextField login = new JTextField(10);
         JTextField password = new JTextField((15));
         JButton okey = new JButton("OK");
         JLabel right = new JLabel("                  ");
+        JButton exit = new JButton("Выход");
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.mySQL.disconnectDataBase();
+                setVisible(false);
+                System.exit(0);
+            }
+        });
 
         okey.addActionListener(new confirmLogin(login, password));
 
@@ -29,7 +38,9 @@ public class loginPassword extends JFrame{
                         .addComponent(please)
                         .addComponent(login)
                         .addComponent(password)
-                        .addComponent(okey))
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(okey)
+                                .addComponent(exit)))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addComponent(right))
         );
@@ -41,12 +52,14 @@ public class loginPassword extends JFrame{
                                 .addComponent(please)
                                 .addComponent(login)
                                 .addComponent(password)
-                                .addComponent(okey))
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(okey)
+                                        .addComponent(exit)))
                         .addComponent(right))
         );
 
         setLocation(460,250);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setVisible(true);
     }

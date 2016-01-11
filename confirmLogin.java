@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-/**
- * Created by Валентин on 29.11.2015.
- */
+
 public class confirmLogin extends AbstractAction{
     static enterError error = new enterError();
     private JTextField login;
@@ -20,7 +18,7 @@ public class confirmLogin extends AbstractAction{
             SwingUtilities.invokeLater(()->new MainMenu().createAndShowGUI(id));
             Main.login.dispose();
         } else {
-            error.createAndShowGUI("Input error");
+            error.createAndShowGUI("Ошибка ввода");
         }
     }
 }
