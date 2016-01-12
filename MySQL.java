@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class MySQL extends Thread {
     private static Connection connection = null;
-    private boolean flag = true;
+    private boolean ffflag = true;
     private String[] nameTable = { "cars", "employees", "orders", "soldcars", "soldspares", "spares" };
 
     @Override
     public void run(){
         try {
-            while (flag) {
+            while (ffflag) {
                 sleep(200);
             }
         }
@@ -430,7 +430,7 @@ public class MySQL extends Thread {
         }
     }
 
-    public static void disconnectDataBase() {
+    public void disconnectDataBase() {
         {
             if (connection != null)
             {
@@ -440,6 +440,7 @@ public class MySQL extends Thread {
                 }
                 catch (Exception e) { }
             }
+            ffflag = false;
         }
     }
 }

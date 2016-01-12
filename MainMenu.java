@@ -25,7 +25,7 @@ public class MainMenu extends JFrame {
         JButton soldSpares = new JButton("Проданные запчасти");
         soldSpares.addActionListener(new soldSpareAction());
 
-        JButton order = new JButton("Список заказов");
+        JButton order = new JButton("Новый заказ");
         order.addActionListener(new mainMenuOrderAction());
 
         JButton entranceAuto = new JButton("Поступление автомобилей");
@@ -35,13 +35,10 @@ public class MainMenu extends JFrame {
         entranceSpare.addActionListener(new entranceSpareAction());
 
         JButton exit = new JButton("Выход");
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.mySQL.disconnectDataBase();
-                setVisible(false);
-                System.exit(0);
-            }
+        exit.addActionListener(e -> {
+            Main.mySQL.disconnectDataBase();
+            setVisible(false);
+            System.exit(0);
         });
         String[] arr = new String[3];
         Main.mySQL.getInfoEmployees(arr, id);
@@ -83,7 +80,7 @@ public class MainMenu extends JFrame {
 
         setLocation(20,20);
         setTitle("Питер Лада");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setVisible(true);
     }
